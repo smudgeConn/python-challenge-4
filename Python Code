@@ -1,0 +1,18 @@
+import urllib.request
+import re
+
+# url = "http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=12345"
+# url = "http://www.pythonchallenge.com/pc/def/linkedlist.php"
+# url = "http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=8022"
+url = "http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=peak.html"
+
+while True:
+    with urllib.request.urlopen(url) as response:
+        html = response.read().decode()
+        print(html)
+        match = re.search(r"and the next nothing is (\d+)", html)
+        if match:
+            url = "http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=" + \
+                match.group(1)
+        else:
+            break
